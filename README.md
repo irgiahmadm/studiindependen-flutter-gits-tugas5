@@ -1,6 +1,12 @@
 # state_management_provider
 
-A new Flutter project.
+## Anggota Kelompok :
+<ul>
+  <li> Alif Irfandi </li>
+  <li> Irgi Ahmad Maulana </li>
+</ul>
+
+State management using provider
 
 ## Getting Started
 
