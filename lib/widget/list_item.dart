@@ -21,7 +21,7 @@ class _ListItemState extends State<ListItem> {
         leading: CircleAvatar(
           radius: 50,
           child: FittedBox(
-            child: Text(widget.contactList[index].name.split(" ").length > 2
+            child: Text(widget.contactList[index].name.split(" ").length > 1
                 ? '${widget.contactList[index].name.substring(0, 1).toUpperCase()}'
                     '${widget.contactList[index].name.substring(1, 2).toUpperCase()}'
                 : '${widget.contactList[index].name.substring(0, 1).toUpperCase()}'),
