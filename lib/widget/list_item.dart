@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:state_management_provider/contact/contact.dart';
-import 'package:state_management_provider/provider/contact_provider.dart';
+import '../contact/contact.dart';
+import '../pages/detail_page.dart';
+import '../provider/contact_provider.dart';
 
 class ListItem extends StatefulWidget {
   const ListItem(
@@ -35,6 +36,16 @@ class _ListItemState extends State<ListItem> {
             widget.contactProvider.deleteContact = widget.contactList[index];
           },
         ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DetailPage(
+                contact: widget.contactList[index],
+                index: index,
+              ),
+            ),
+          );
+        },
       ),
       itemCount: widget.contactList.length,
     );

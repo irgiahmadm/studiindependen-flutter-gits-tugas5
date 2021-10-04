@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:state_management_provider/provider/contact_provider.dart';
-import 'package:state_management_provider/widget/list_item.dart';
+import 'provider/contact_provider.dart';
+import 'widget/list_item.dart';
+
+import 'pages/detail_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,11 +13,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(
+      create: (context) => ContactProvider(),
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(title: 'Contact List'),
       ),
-      home: MyHomePage(title: 'Contact List'),
     );
   }
 }
@@ -31,24 +36,27 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ContactProvider>(
-      create: (context) => ContactProvider(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        child: Consumer<ContactProvider>(
+          builder: (context, contactProvider, _) => ListItem(
+              contactList: contactProvider.contactList,
+              contactProvider: contactProvider),
         ),
-        body: Container(
-          child: Consumer<ContactProvider>(
-            builder: (context, contactProvider, _) => ListItem(
-                contactList: contactProvider.contactList,
-                contactProvider: contactProvider),
-          ),
-        ),
-        /* floatingActionButton: FloatingActionButton(
-          onPressed: ,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ),  */
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DetailPage(),
+            ),
+          );
+        },
+        tooltip: 'Add Contact',
+        child: Icon(Icons.add),
       ),
     );
   }
